@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
 import authSeller from "@/middlewares/authSeller";
-import { getAuth } from "@clerk/nextjs/dist/types/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
 import { NextResponse } from "next/server";
-
+import imagekit from "@/configs/imageKit";
 //Add new product
 export async function POST(request) {
   try {
@@ -15,6 +15,7 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
+
     const name = formData.get("name");
     const description = formData.get("description");
     const mrp = Number(formData.get("mrp"));
@@ -28,11 +29,11 @@ export async function POST(request) {
       !mrp ||
       !price ||
       !category ||
-      !images.length < 1
+      images.length < 1
     ) {
       return NextResponse.json(
         { message: "Please fill all the fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -54,7 +55,7 @@ export async function POST(request) {
           ],
         });
         return url;
-      })
+      }),
     );
 
     await prisma.product.create({
@@ -74,7 +75,7 @@ export async function POST(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -96,7 +97,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

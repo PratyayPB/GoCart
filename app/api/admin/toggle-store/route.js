@@ -1,3 +1,8 @@
+import { getAuth } from "@clerk/nextjs/server";
+import authAdmin from "@/middlewares/authAdmin";
+import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
+
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
@@ -7,12 +12,12 @@ export async function POST(request) {
       return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
 
-    const stores = await prisma.store.findMany({
-      where: {
-        status: "approved",
-      },
-      include: { user: true },
-    });
+    // const stores = await prisma.store.findMany({
+    //   where: {
+    //     status: "approved",
+    //   },
+    //   include: { user: true },
+    // });
     const { storeId } = await request.json();
     if (!storeId) {
       return NextResponse.json({ message: "Missing StoreID" }, { status: 400 });
@@ -36,7 +41,7 @@ export async function POST(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

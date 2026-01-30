@@ -16,7 +16,7 @@ export async function GET(request) {
 
     const stores = await prisma.store.findMany({
       where: {
-        status: { in: ["approved"] },
+        status: "Approved",
       },
       include: {
         user: true,
@@ -28,7 +28,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

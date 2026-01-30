@@ -8,19 +8,20 @@ import { inngest } from "@/inngest/client";
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
-    const isAdmin = await authAdmin();
+    const isAdmin = await authAdmin(userId);
     if (!isAdmin) {
       return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
-    const coupon = await request.json();
+    const { coupon } = await request.json();
     coupon.code = coupon.code.toUpperCase();
+    coupon.expiresAt = new Date(coupon.expiresAt);
     await prisma.coupon.create({ data: coupon }).then(async (coupon) => {
       //inngest scheduler function to delete coupon on expiry
       await inngest.send({
         name: "app/coupon.created",
         data: {
           code: coupon.code,
-          expires_at: new Date(coupon.expires_at),
+          expires_at: new Date(coupon.expires_at), //coupon expiry date
         },
       });
     });
@@ -29,7 +30,7 @@ export async function POST(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -38,7 +39,7 @@ export async function POST(request) {
 export async function DELETE(request) {
   try {
     const { userId } = getAuth(request);
-    const isAdmin = await authAdmin();
+    const isAdmin = await authAdmin(userId);
     if (!isAdmin) {
       return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
@@ -52,7 +53,7 @@ export async function DELETE(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -60,7 +61,7 @@ export async function DELETE(request) {
 export async function GET(request) {
   try {
     const { userId } = getAuth(request);
-    const isAdmin = await authAdmin();
+    const isAdmin = await authAdmin(userId);
     if (!isAdmin) {
       return NextResponse.json({ message: "Not Authorized" }, { status: 401 });
     }
@@ -70,7 +71,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

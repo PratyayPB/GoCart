@@ -12,7 +12,8 @@ export default function AdminStores() {
   const { user } = useUser();
   const { getToken } = useAuth();
 
-  const [stores, setStores] = useState([]);
+  const [fetchedStores, setFetchedStores] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   const fetchStores = async () => {
@@ -21,9 +22,12 @@ export default function AdminStores() {
       const { data } = await axios.get("/api/admin/stores", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setStores(data.stores);
+
+      setFetchedStores(data.stores);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,7 +39,7 @@ export default function AdminStores() {
         { storeId },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       await fetchStores();
       toast.success(data.message);
@@ -54,9 +58,9 @@ export default function AdminStores() {
         Live <span className="text-slate-800 font-medium">Stores</span>
       </h1>
 
-      {stores.length ? (
+      {fetchedStores.length ? (
         <div className="flex flex-col gap-4 mt-4">
-          {stores.map((store) => (
+          {fetchedStores.map((store) => (
             <div
               key={store.id}
               className="bg-white border border-slate-200 rounded-lg shadow-sm p-6 flex max-md:flex-col gap-4 md:items-end max-w-4xl"

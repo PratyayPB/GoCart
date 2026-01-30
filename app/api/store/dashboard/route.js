@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import authSeller from "@/middlewares/authSeller";
-import { getAuth } from "@clerk/nextjs/dist/types/server";
+import { getAuth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
 //Get dashboard data for seller(total orders, total earnings, total products, total ratings)
@@ -35,7 +35,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

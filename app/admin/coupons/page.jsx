@@ -23,9 +23,10 @@ export default function AdminCoupons() {
   const fetchCoupons = async () => {
     try {
       const token = await getToken();
-      const { data } = axios.get("/api/admin/coupon", {
+      const { data } = await axios.get("/api/admin/coupon", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(data);
       setCoupons(data.coupons);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
@@ -37,14 +38,25 @@ export default function AdminCoupons() {
     try {
       const token = await getToken();
       newCoupon.discount = Number(newCoupon.discount);
-      newCoupon.date = new Date(newCoupon.date);
+      // newCoupon.date = new Date(newCoupon.date);
       const { data } = axios.post(
         "/api/admin/coupon",
         { coupon: newCoupon },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
+      setTimeout(() => toast.success("Coupon added successfully"), 1000);
+      setNewCoupon({
+        code: "",
+        description: "",
+        discount: "",
+        forNewUser: false,
+        forMember: false,
+        isPublic: false,
+        expiresAt: new Date(),
+      });
+      await fetchCoupons();
     } catch (error) {
       toast.error(error.response.data.message || error.message);
     }
@@ -57,7 +69,7 @@ export default function AdminCoupons() {
   const deleteCoupon = async (code) => {
     try {
       const confirm = window.confirm(
-        "Are you sure you want to delete this coupon?"
+        "Are you sure you want to delete this coupon?",
       );
       if (!confirm) return;
       const token = await getToken();
@@ -122,11 +134,11 @@ export default function AdminCoupons() {
         <label>
           <p className="mt-3">Coupon Expiry Date</p>
           <input
-            type="date"
+            type="datetime-local"
             placeholder="Coupon Expires At"
             className="w-full mt-1 p-2 border border-slate-200 outline-slate-400 rounded-md"
             name="expiresAt"
-            value={format(newCoupon.expiresAt, "yyyy-MM-dd")}
+            value={format(newCoupon.expiresAt, "yyyy-MM-dd'T'HH:mm")}
             onChange={handleChange}
           />
         </label>

@@ -50,7 +50,6 @@ export default function AdminDashboard() {
       });
 
       setDashboardData(data.dashboardData);
-      console.log(dashboardData);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
     } finally {

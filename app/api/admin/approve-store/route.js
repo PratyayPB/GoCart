@@ -14,12 +14,13 @@ export async function POST(request) {
     }
 
     const { storeId, status } = await request.json();
-    if (status == "Approved") {
+
+    if (status == "approved") {
       await prisma.store.update({
         where: { id: storeId },
         data: { status: "Approved", isActive: true },
       });
-    } else if (status == "Rejected") {
+    } else if (status == "rejected") {
       await prisma.store.update({
         where: { id: storeId },
         data: { status: "Rejected" },
@@ -31,7 +32,7 @@ export async function POST(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -61,7 +62,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json(
       { error: error.code || error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

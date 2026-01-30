@@ -87,3 +87,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 !!!FIX APPROVE STORE LOGIC IN ADMIN
 !!!FIX STORE PAGE LOGIC ADMIN
 !!!FIX ADMIN APIS
+!!!Add envs to vercel and redeploy
+!!!Fix Store Module
+!!!Test Free/Plus membership, membership fee payment
+
+> > cartSlice,productSlice,homepage product fetch, shop page product fetch, imagekit url setup in product collection database,integrate gemini ai
+
+> > FULL APP TESTING:
+> > UNIT TESTING
+> > INTEGRATED TESTING
+> > FULL SYSTEM TESTING
+
+> Debounce on routes and buttons
+> Plus Member Functionality
+
+User Functionality:
+
+> Coupon Functionality, add timestamp feature in frontend to match with the db table, test api routes, test with frontend
+
+> store dashboard all functions:
+>
+> > Gemini ai assist for auto completion
+
+> Admin dashboard all functions
