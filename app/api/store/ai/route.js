@@ -1,56 +1,53 @@
 import { getAuth } from "@clerk/nextjs/server";
 import authSeller from "@/middlewares/authSeller";
 import { NextResponse } from "next/server";
-import openai from "@/configs/openAI";
+// import openai from "@/configs/openAI";
+import { geminiAI } from "@/configs/geminiAi";
+
 async function main(base64Image, mimeType) {
   const messages = [
     {
-      role: "system",
-      content: `You are a product listing assistant for an e-commerce store.Your job is to analyze an image of a product and generate
-        structured data.
-        
-        Respond ONLY with raw JSON(no code block,no markdown,no explanation).
-        The JSON must strictly follow this schema:
-        {
-        name:"String",          //Short product name
-        "description":"String", //Marketing Friendly description of the product
-        }
-        `,
-    },
-    {
       role: "user",
-      content: [
+      parts: [
         {
-          type: "text",
-          text: "Analyze this image and return name+description",
+          text: `You are a product listing assistant for an e-commerce store.
+Your job is to analyze an image of a product and generate structured data.
+
+Respond ONLY with raw JSON (no markdown, no explanation).
+The JSON must strictly follow this schema:
+{
+  "name": "String",
+  "description": "String"
+}`,
         },
         {
-          type: "image_url",
-          image_url: {
-            url: `data:${mimeType};base64,${base64Image}`,
+          inlineData: {
+            mimeType: mimeType,
+            data: base64Image,
           },
         },
       ],
     },
   ];
 
-  const response = await openai.chat.completions.create({
-    model: process.env.OPENAI_MODEL,
-    messages: messages,
+  const result = await geminiAI.generateContent({
+    contents: messages,
   });
 
-  const raw = response.choices[0].message.content;
+  const raw = result.response.text();
 
-  //remove ```json or ```wrappers if present
   const cleaned = raw.replace(/```json|```/g, "").trim();
+
   let parsed;
   try {
     parsed = JSON.parse(cleaned);
   } catch (error) {
     throw new Error("Invalid JSON");
   }
+
   return parsed;
 }
+
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
@@ -61,6 +58,7 @@ export async function POST(request) {
 
     const { base64Image, mimeType } = await request.json();
     const result = await main(base64Image, mimeType);
+
     return NextResponse.json({ ...result });
   } catch (error) {
     console.error(error);

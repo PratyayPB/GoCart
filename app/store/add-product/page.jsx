@@ -29,7 +29,7 @@ export default function StoreAddProduct() {
     category: "",
   });
   const [loading, setLoading] = useState(false);
-  // const [aiUsed, setaiUsed] = useState(false);
+  const [aiUsed, setaiUsed] = useState(false);
 
   const onChangeHandler = (e) => {
     setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
@@ -154,8 +154,9 @@ export default function StoreAddProduct() {
               type="file"
               accept="image/*"
               id={`images${key}`}
-              onChange={(e) =>
-                setImages({ ...images, [key]: e.target.files[0] })
+              onChange={
+                (e) => handleImageUpload(key, e.target.files[0])
+                // setImages({ ...images, [key]: e.target.files[0] })
               }
               hidden
             />
