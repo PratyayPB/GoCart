@@ -18,6 +18,7 @@ export default function StoreOrders() {
       const { data } = await axios.get("/api/store/orders", {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       setOrders(data.orders);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
@@ -28,6 +29,7 @@ export default function StoreOrders() {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
+      setLoading(true);
       const token = await getToken();
       await axios.post(
         "/api/store/orders",
@@ -36,12 +38,12 @@ export default function StoreOrders() {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      setOrders((prev) => {
-        prev.map((order) => {
-          order.id === orderId ? { ...order, status } : order;
-        });
-        toast.success("Status updated successfully");
-      });
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === orderId ? { ...order, status } : order,
+        ),
+      );
+      toast.success("Order status updated successfully");
     } catch (error) {
       toast.error(error.response.data.message || error.message);
     } finally {

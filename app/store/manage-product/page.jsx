@@ -26,7 +26,7 @@ export default function StoreManageProducts() {
       setProducts(
         data.products.sort((a, b) => {
           new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        }),
       );
     } catch (error) {
       toast.error(error.response.data.message || error.message);
@@ -37,19 +37,19 @@ export default function StoreManageProducts() {
   const toggleStock = async (productId) => {
     try {
       const token = await getToken();
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         "/api/store/stock-toggle",
         { productId },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setProducts((prevProducts) =>
         prevProducts.map((product) =>
           product.id === productId
             ? { ...product, inStock: !product.inStock }
-            : product
-        )
+            : product,
+        ),
       );
       toast.success(data.message);
     } catch (error) {

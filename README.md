@@ -89,6 +89,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 !!!FIX ADMIN APIS
 !!!Add envs to vercel and redeploy
 !!!Fix Store Module
+!!!Fix Review Functionality
 
 > > cartSlice,productSlice,homepage product fetch, shop page product fetch, imagekit url setup in product collection database,integrate gemini ai
 
