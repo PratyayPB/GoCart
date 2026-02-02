@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const { getToken } = useAuth();
+
   const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
 
   const router = useRouter();

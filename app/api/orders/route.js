@@ -3,6 +3,10 @@ import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { PaymentMethod } from "@prisma/client";
 import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2024-06-20",
+});
 export async function POST(request) {
   try {
     const { userId, has } = getAuth(request);
@@ -108,7 +112,6 @@ export async function POST(request) {
       orderIds.push(order.id);
     }
     if (paymentMethod === "STRIPE") {
-      const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
       const origin = await request.headers.get("origin");
 
       const session = await stripe.checkout.sessions.create({
@@ -135,6 +138,11 @@ export async function POST(request) {
           appId: "gocart",
         },
       });
+
+      await prisma.user.update({
+        where: { id: userId },
+        data: { cart: {} },
+      });
       return NextResponse.json({ session });
     }
 
@@ -160,7 +168,7 @@ export async function GET(request) {
         userId,
         OR: [
           { paymentMethod: PaymentMethod.COD },
-          { AND: [{ paymentMethod: PaymentMethod.STRIPE }, { isPaid: true }] },
+          { AND: [{ paymentMethod: PaymentMethod.STRIPE }] },
         ],
       },
 

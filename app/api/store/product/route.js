@@ -46,15 +46,16 @@ export async function POST(request) {
           fileName: image.name,
           folder: "products",
         });
-        const url = imagekit.url({
-          path: response.path,
-          transformation: [
-            { quality: "auto" },
-            { width: "1024" },
-            { format: "webp" },
-          ],
-        });
-        return url;
+        return response.url;
+        // const url = imagekit.url({
+        //   path: response.path,
+        //   transformation: [
+        //     { quality: "auto" },
+        //     { width: "1024" },
+        //     { format: "webp" },
+        //   ],
+        // });
+        // return url;
       }),
     );
 

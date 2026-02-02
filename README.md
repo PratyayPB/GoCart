@@ -84,24 +84,10 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-!!!FIX APPROVE STORE LOGIC IN ADMIN
-!!!FIX STORE PAGE LOGIC ADMIN
 !!!FIX ADMIN APIS
 !!!Add envs to vercel and redeploy
-!!!Fix Store Module
-!!!Fix Review Functionality
-
-> > cartSlice,productSlice,homepage product fetch, shop page product fetch, imagekit url setup in product collection database,integrate gemini ai
 
 > > FULL APP TESTING:
 > > UNIT TESTING
 > > INTEGRATED TESTING
 > > FULL SYSTEM TESTING
-
-User Functionality:
-
-> store dashboard all functions:
->
-> > Gemini ai assist for auto completion
-
-> Admin dashboard all functions

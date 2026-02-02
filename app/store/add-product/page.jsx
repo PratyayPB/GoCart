@@ -109,6 +109,8 @@ export default function StoreAddProduct() {
       toast.success(data.message);
 
       //reset form & images
+
+      setaiUsed(false);
       setProductInfo({
         name: "",
         description: "",

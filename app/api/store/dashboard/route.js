@@ -7,6 +7,7 @@ import prisma from "@/lib/prisma";
 export async function GET(request) {
   try {
     const { userId } = getAuth(request);
+
     const storeId = await authSeller(userId);
 
     //Get all orders for seller

@@ -30,6 +30,7 @@ export async function POST(request) {
       data: {
         orderId,
         productId,
+        userId,
         rating,
         review,
       },

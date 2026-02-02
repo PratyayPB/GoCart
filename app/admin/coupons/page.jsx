@@ -26,7 +26,7 @@ export default function AdminCoupons() {
       const { data } = await axios.get("/api/admin/coupon", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data);
+
       setCoupons(data.coupons);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
