@@ -5,6 +5,21 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const { userId } = getAuth(request);
+    if (!userId) {  
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const user = await prisma.user.upsert({
+      where: { id: userId },
+      update: {},
+      create: {
+        id: userId,
+        name: "",
+        email: "",
+        image: "",
+      },
+    });
+
+
     const { address } = await request.json();
     address.userId = userId;
 
@@ -27,7 +42,12 @@ export async function POST(request) {
       );
     }
 
-    const newAddress = await prisma.address.create({ data: address });
+    const newAddress = await prisma.address.create({
+      data: {
+        ...address,
+        userId: user.id,
+      },
+    });
 
     return NextResponse.json(
       {
