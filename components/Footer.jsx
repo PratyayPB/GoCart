@@ -27,6 +27,7 @@ const Footer = () => {
                 { text: "Privacy Policy", path: '/', icon: null },
                 { text: "Become Plus Member", path: '/pricing', icon: null },
                 { text: "Vendor", path: '/vendor', icon: null },
+                { text: "Admin", path: '/admin', icon: null },
             ]
         },
         {
@@ -79,9 +80,17 @@ const Footer = () => {
                         ))}
                     </div>
                 </div>
-                <p className="py-4 text-sm text-slate-500">
-                    Copyright 2025 © gocart All Right Reserved.
-                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-between py-4 gap-2 text-sm text-slate-500">
+                    <p>
+                        Copyright 2025 © gocart All Right Reserved.
+                    </p>
+                    <Link
+                        href="/admin"
+                        className="px-3 py-1 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-md transition"
+                    >
+                        Admin
+                    </Link>
+                </div>
             </div>
         </footer>
     );
