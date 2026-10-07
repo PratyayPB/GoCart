@@ -105,57 +105,41 @@ GoCart delivers:
 
 <div align="center">
 
-### Marketplace Storefront & Product Discovery
+
 ![Storefront Banner & Products](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033350.png?updatedAt=1790745379389)
-*Homepage showcase featuring hero deals, multi-category navigation, and featured collections.*
 
 ---
 
-### Product Details & Customer Experience
 ![Product Showcase & Details](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033401.png?updatedAt=1790745378842)
-*Rich product preview with image gallery powered by ImageKit, pricing breakdown, and buyer reviews.*
 
 ---
 
-### Shopping Cart & Order Checkout
 ![Cart & Order Summary](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033443.png?updatedAt=1790745378896)
-*Real-time shopping cart calculation, promotional coupon application, and payment gateway selection.*
+
 
 ---
 
-### Delivery Address & Shipping Management
 ![Address Management](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033409.png?updatedAt=1790745378835)
-*Intuitive shipping address creation and selection interface.*
 
 ---
 
-### Multi-Vendor Store Application
 ![Vendor Onboarding](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033608.png?updatedAt=1790745378754)
-*Seller registration portal enabling merchants to apply for an independent storefront.*
 
 ---
 
-### Seller Operations & Order Tracking
 ![Order Tracking & Status](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033429.png?updatedAt=1790745378735)
-*Order tracking portal with status monitoring from processing through delivery.*
 
 ---
 
-### Merchant Product Ingestion & AI Generation
 ![Add Product & AI Listing](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033500.png?updatedAt=1790745378694)
-*Add Product interface integrated with Google Gemini AI image-to-listing automation.*
 
 ---
 
-### Merchant Inventory & Catalog Management
 ![Product Inventory Table](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033534.png?updatedAt=1790745378702)
-*Live inventory listing with instant in-stock / out-of-stock toggles and category metrics.*
 
 ---
 
-### Platform Administration & Analytics Dashboard
 ![Admin Dashboard & Recharts](https://ik.imagekit.io/ulycoljug/Portfolio-resources/go-cart/Screenshot%202026-02-04%20033630.png?updatedAt=1790745378615)
-*Administrative command center with real-time revenue curves, store status management, and coupon dispatch.*
 
 </div>
 
