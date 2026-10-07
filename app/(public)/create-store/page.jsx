@@ -33,7 +33,7 @@ export default function CreateStore() {
   const fetchSellerStatus = async () => {
     const token = await getToken();
     try {
-      const { data } = await axios.get("api/store/create", {
+      const { data } = await axios.get("/api/store/create", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (["approved", "pending", "rejected"].includes(data.status)) {

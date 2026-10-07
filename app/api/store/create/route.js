@@ -37,12 +37,20 @@ export async function POST(request) {
 
     //check if user has already registered a store
     const store = await prisma.store.findFirst({
-      where: { userId: userId },
+      where: {
+        OR: [
+          { userId: userId },
+          { email: email },
+        ],
+      },
     });
 
     //if store is already registered, return status
     if (store) {
-      return NextResponse.json({ status: store.status });
+      return NextResponse.json(
+        { message: "You already have a store", status: store.status },
+        { status: 400 }
+      );
     }
 
     //if username is already taken, return error
@@ -119,14 +127,27 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     const { userId } = getAuth(request);
-    //check if user has already registered a store
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    //check if user has already registered a store by userId or email
     const store = await prisma.store.findFirst({
-      where: { userId: userId },
+      where: {
+        OR: [
+          { userId: userId },
+          ...(user?.email ? [{ email: user.email }] : []),
+        ],
+      },
     });
 
     //if store is already registered, return status
     if (store) {
-      return NextResponse.json({ status: store.status });
+      return NextResponse.json({ status: store.status, storeId: store.id });
     }
 
     return NextResponse.json({ status: "Not Registered" });
